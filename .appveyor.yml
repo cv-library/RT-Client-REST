@@ -1,0 +1,13 @@
+cache:
+  - C:\strawberry
+
+install:
+  - if not exist "C:\strawberry" choco install strawberryperl -y
+  - set PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;%PATH%
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - pwd
+  - cpanm Dist::Zilla
+  - dzil authordeps --missing | cpanm && exit 0
+
+test_script:
+  - dzil test
